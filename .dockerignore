@@ -1,0 +1,14 @@
+# ビルドコンテキストから除外してイメージサイズとビルド速度を向上
+**/bin/
+**/obj/
+**/node_modules/
+**/.git/
+**/.vscode/
+**/.vs/
+**/.idea/
+**/repos/
+**/*.md
+**/.gitignore
+**/.gitattributes
+LICENSE
+README.md

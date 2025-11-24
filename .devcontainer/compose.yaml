@@ -1,0 +1,27 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../:/home/vscode/app:cached
+    tty: true
+    stdin_open: true
+
+  web:
+    image: jellyfin/jellyfin:10.11
+    ports:
+      - 8096:8096
+    volumes:
+      - ../config:/config
+      - media:/media
+      - cache:/cache
+
+volumes:
+  cache:
+    name: jellyfin_cache
+    driver: local
+
+  media:
+    name: jellyfin_media
+    driver: local

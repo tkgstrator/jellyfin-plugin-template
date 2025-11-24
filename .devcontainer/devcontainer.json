@@ -1,0 +1,60 @@
+{
+  "name": "Jellyfin Plugin Template",
+  "dockerComposeFile": ["compose.yaml"],
+  "service": "app",
+  "workspaceFolder": "/home/vscode/app",
+  "shutdownAction": "stopCompose",
+  "remoteUser": "vscode",
+  "mounts": [
+    "source=${env:HOME}/home/vscode/.ssh,target=/.ssh,type=bind,consistency=cached,readonly"
+  ],
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "configureZshAsDefaultShell": true
+    },
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "2.50.1"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/dhoeric/features/act:1": {},
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "dockerDashComposeVersion": "v2",
+      "moby": false
+    }
+  },
+  "postAttachCommand": "/bin/zsh .devcontainer/postAttachCommand.sh",
+  "postCreateCommand": "/bin/zsh .devcontainer/postCreateCommand.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "kreativ-software.csharpextensions",
+        "ms-dotnettools.csdevkit",
+        "ms-dotnettools.csharp",
+        "ms-dotnettools.vscode-dotnet-runtime"
+      ],
+      "settings": {
+        "omnisharp.enableEditorConfigSupport": true,
+        "omnisharp.enableRoslynAnalyzers": true,
+        "dotnet.defaultSolution": "Jellyfin.Plugin.AppleMusic.sln",
+        "[csharp]": {
+          "editor.tabSize": 4,
+          "editor.insertSpaces": true,
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+          }
+        },
+        "editor.formatOnPaste": true,
+        "editor.guides.bracketPairs": "active",
+        "editor.detectIndentation": false,
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+        "debug.internalConsoleOptions": "neverOpen",
+        "diffEditor.diffAlgorithm": "advanced",
+        "diffEditor.experimental.showMoves": true,
+        "diffEditor.renderSideBySide": false,
+        "scm.defaultViewMode": "tree"
+      }
+    }
+  }
+}

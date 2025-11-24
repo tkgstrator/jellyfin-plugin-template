@@ -1,0 +1,58 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Publish (act)",
+      "type": "shell",
+      "command": "act",
+      "args": [
+        "-W",
+        "${workspaceFolder}/.github/workflows/publish.yaml",
+        "--artifact-server-path",
+        "artifacts",
+        "-s",
+        "GITHUB_TOKEN=\"$(gh auth token)\""
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Build (dotnet)",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary",
+      ],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Deploy",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "unzip -o ${workspaceFolder}/artifacts/1/build-artifact/*.zip -d ${workspaceFolder}/config/plugins && unzip -o ${workspaceFolder}/config/plugins/*.zip -d ${workspaceFolder}/config/plugins/${config:pluginName} && rm ${workspaceFolder}/config/plugins/*.zip"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Publish and Deploy",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Publish (act)",
+        "Deploy"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}
